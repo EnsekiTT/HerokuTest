@@ -1,18 +1,16 @@
-import os
-
+import tornado.ioloop
 import tornado.web
-import tornado.wsgi
 
-
-class HelloHandler(tornado.web.RequestHandler):
+class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        self.write("Hello.")
+        self.write("Hello, world")
 
+def make_app():
+    return tornado.web.Application([
+        (r"/", MainHandler),
+    ])
 
-settings = {
-    "static_path": os.path.join(os.path.dirname(__file__), "static"),
-}
-
-application = tornado.web.Application([
-    ("/", HelloHandler),
-], **settings)
+if __name__ == "__main__":
+    app = make_app()
+    app.listen(5000)
+    tornado.ioloop.IOLoop.current().start()
