@@ -1,8 +1,9 @@
 import tornado.ioloop
 import tornado.web
 
-from tornado.options import define
+from tornado.options import define, options
 define("port", default=5000, help="run on the given port", type=int)
+tornado.options.parse_command_line()
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
